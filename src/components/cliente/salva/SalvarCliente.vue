@@ -45,32 +45,31 @@
 </template>
 
 <script>
-import axios from "axios";
+import ClienteApi from '@/api/ClienteApi'
 export default {
   data() {
     return {
       nomeCompleto: "",
       email: "",
       cpf: "",
+      clienteApi = new ClienteApi()
     };
   },
   methods: {
     enviar() {
-      axios
-        .post("http://localhost:9091/cliente", {
+      let clienteDto = {
           nomeCompleto: this.nomeCompleto,
           email: this.email,
           cpf: this.cpf,
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
+      }
+     ClienteApi.salvarCliente(clienteDto).then(response =>{
+       console.log(response)
+     }).catch(erro =>{
+       console.log(erro)
+     })
+    }
   },
-};
+}
 </script>
 
 <style>
